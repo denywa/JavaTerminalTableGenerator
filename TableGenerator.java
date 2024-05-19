@@ -15,14 +15,14 @@ public class TableGenerator {
         int[] columnWidths = new int[fields.length];
         for (int i = 0; i < fields.length; i++) {
             fields[i].setAccessible(true);
-            columnWidths[i] = fields[i].getName().length();
+            columnWidths[i] = fields[i].getName().length() + 2; 
         }
 
         // Mengukur lebar kolom berdasarkan data
         for (Object obj : objects) {
             for (int i = 0; i < fields.length; i++) {
                 try {
-                    String value = String.valueOf(fields[i].get(obj));
+                    String value = " " + String.valueOf(fields[i].get(obj)) + " ";
                     columnWidths[i] = Math.max(columnWidths[i], value.length());
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -34,7 +34,7 @@ public class TableGenerator {
         printLine(columnWidths);
         String[] headers = new String[fields.length];
         for (int i = 0; i < fields.length; i++) {
-            headers[i] = fields[i].getName();
+            headers[i] = " " + fields[i].getName() + " ";
         }
         printRow(headers, columnWidths);
         printLine(columnWidths);
@@ -44,7 +44,7 @@ public class TableGenerator {
             String[] row = new String[fields.length];
             for (int i = 0; i < fields.length; i++) {
                 try {
-                    row[i] = String.valueOf(fields[i].get(obj));
+                    row[i] = " " + String.valueOf(fields[i].get(obj)) + " ";
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
